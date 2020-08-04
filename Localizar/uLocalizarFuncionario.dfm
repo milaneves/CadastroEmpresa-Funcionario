@@ -1,0 +1,200 @@
+object frmLocalizarFuncionario: TfrmLocalizarFuncionario
+  Left = 0
+  Top = 0
+  Caption = 'Localizar Funcion'#225'rios'
+  ClientHeight = 676
+  ClientWidth = 949
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 949
+    Height = 676
+    ActivePage = tabListagem
+    Align = alClient
+    TabOrder = 0
+    object tabListagem: TTabSheet
+      Caption = 'Listagem'
+      object pnListagem: TPanel
+        Left = 0
+        Top = 0
+        Width = 941
+        Height = 82
+        Align = alTop
+        TabOrder = 0
+        object lblDataIncial: TLabel
+          Left = 4
+          Top = 30
+          Width = 53
+          Height = 13
+          Caption = 'Data Inicial'
+        end
+        object lblDataFinal: TLabel
+          Left = 140
+          Top = 30
+          Width = 48
+          Height = 13
+          Caption = 'Data Final'
+        end
+        object lbla: TLabel
+          Left = 118
+          Top = 49
+          Width = 6
+          Height = 13
+          Caption = #224
+        end
+        object btnPesquisar: TBitBtn
+          Left = 263
+          Top = 47
+          Width = 75
+          Height = 25
+          Caption = 'PESQUISAR'
+          DoubleBuffered = True
+          ParentDoubleBuffered = False
+          TabOrder = 2
+          OnClick = btnPesquisarClick
+        end
+        object btnExportar: TBitBtn
+          Left = 640
+          Top = 47
+          Width = 291
+          Height = 25
+          Caption = 'EXPORTAR ARQUIVO'
+          DoubleBuffered = True
+          Enabled = False
+          ParentDoubleBuffered = False
+          TabOrder = 0
+          OnClick = btnExportarClick
+        end
+        object edtDataFinal: TMaskEdit
+          Tag = 1
+          Left = 140
+          Top = 49
+          Width = 101
+          Height = 21
+          EditMask = '!99/99/0000;1;_'
+          MaxLength = 10
+          TabOrder = 1
+          Text = '  /  /    '
+        end
+      end
+      object grdListagem: TDBGrid
+        Left = 3
+        Top = 88
+        Width = 1022
+        Height = 614
+        DataSource = dsListagem
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+  end
+  object edtDataInicial: TMaskEdit
+    Tag = 1
+    Left = 8
+    Top = 73
+    Width = 101
+    Height = 21
+    EditMask = '!99/99/0000;1;_'
+    MaxLength = 10
+    TabOrder = 1
+    Text = '  /  /    '
+  end
+  object QryListagem: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    SQL.Strings = (
+      'select  a.CPF, '
+      '        a.Nome as NomeFunc, '
+      '        Nome_Fantasia, '
+      '        c.Endereco as EnderecoFunc,'
+      '        c.Bairro as bairroFunc, '
+      '        c.Cidade as CidadeFunc, '
+      '        c.CEP as CEPFunc, '
+      '        c.Numero as Numerofunc,'
+      '        c.Complemento as ComplementoFun, '
+      '        a.Email as EmailFunc, '
+      '        a.Telefone as TelefoneFunc '
+      
+        '  from funcionario as a join Empresa as b on (a.IdEmpresa = b.Id' +
+        'Empresa)  '
+      
+        '                                       join Endereco as c on (a.' +
+        'CPF = c.CPF)')
+    Params = <>
+    Left = 768
+    Top = 88
+    object QryListagemCPF: TWideStringField
+      FieldName = 'CPF'
+      Required = True
+      Size = 11
+    end
+    object QryListagemNomeFunc: TWideStringField
+      FieldName = 'NomeFunc'
+      Required = True
+      Size = 70
+    end
+    object QryListagemNome_Fantasia: TWideStringField
+      FieldName = 'Nome_Fantasia'
+      Required = True
+      Size = 80
+    end
+    object QryListagemEnderecoFunc: TWideStringField
+      FieldName = 'EnderecoFunc'
+      Required = True
+      Size = 60
+    end
+    object QryListagembairroFunc: TWideStringField
+      FieldName = 'bairroFunc'
+      Required = True
+      Size = 60
+    end
+    object QryListagemCidadeFunc: TWideStringField
+      FieldName = 'CidadeFunc'
+      Required = True
+      Size = 60
+    end
+    object QryListagemCEPFunc: TWideStringField
+      FieldName = 'CEPFunc'
+      Required = True
+      Size = 8
+    end
+    object QryListagemNumerofunc: TIntegerField
+      FieldName = 'Numerofunc'
+      Required = True
+    end
+    object QryListagemComplementoFun: TWideStringField
+      FieldName = 'ComplementoFun'
+      Size = 60
+    end
+    object QryListagemEmailFunc: TWideStringField
+      FieldName = 'EmailFunc'
+      Required = True
+      Size = 60
+    end
+    object QryListagemTelefoneFunc: TWideStringField
+      FieldName = 'TelefoneFunc'
+      Required = True
+      Size = 15
+    end
+  end
+  object dsListagem: TDataSource
+    DataSet = QryListagem
+    Left = 832
+    Top = 88
+  end
+end

@@ -1,0 +1,18 @@
+program ExtraDigital;
+
+uses
+  Forms,
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uEmpresa in 'Cadastro\uEmpresa.pas' {frmEmpresa},
+  uDTMConexao in 'DataModule\uDTMConexao.pas' {DataModule2: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmEmpresa, frmEmpresa);
+  Application.CreateForm(TDataModule2, DataModule2);
+  Application.Run;
+end.

@@ -1,0 +1,25 @@
+unit Funcionario;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, uTelaHeranca, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  DBCtrls, Grids, DBGrids, StdCtrls, Buttons, ExtCtrls, ComCtrls;
+
+type
+  TfrmTelaHeranca1 = class(TfrmTelaHeranca)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmTelaHeranca1: TfrmTelaHeranca1;
+
+implementation
+
+{$R *.dfm}
+
+end.

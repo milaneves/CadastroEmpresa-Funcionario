@@ -1,0 +1,134 @@
+unit uLocalizarFuncionario;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset, Grids, DBGrids,
+  StdCtrls, Buttons, ExtCtrls, ComCtrls, uDTMConexao, Mask ;
+
+type
+  TfrmLocalizarFuncionario = class(TForm)
+    pgPrincipal: TPageControl;
+    tabListagem: TTabSheet;
+    pnListagem: TPanel;
+    lblDataIncial: TLabel;
+    btnPesquisar: TBitBtn;
+    btnExportar: TBitBtn;
+    grdListagem: TDBGrid;
+    QryListagem: TZQuery;
+    dsListagem: TDataSource;
+    QryListagemCPF: TWideStringField;
+    edtDataInicial: TMaskEdit;
+    edtDataFinal: TMaskEdit;
+    lblDataFinal: TLabel;
+    lbla: TLabel;
+    QryListagemNomeFunc: TWideStringField;
+    QryListagemNome_Fantasia: TWideStringField;
+    QryListagemEnderecoFunc: TWideStringField;
+    QryListagembairroFunc: TWideStringField;
+    QryListagemCidadeFunc: TWideStringField;
+    QryListagemCEPFunc: TWideStringField;
+    QryListagemNumerofunc: TIntegerField;
+    QryListagemComplementoFun: TWideStringField;
+    QryListagemEmailFunc: TWideStringField;
+    QryListagemTelefoneFunc: TWideStringField;
+    procedure FormCreate(Sender: TObject);
+    procedure ExportarDados;
+    procedure btnExportarClick(Sender: TObject);
+    procedure SelecionarRegistro;
+    procedure btnPesquisarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmLocalizarFuncionario: TfrmLocalizarFuncionario;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmLocalizarFuncionario.btnExportarClick(Sender: TObject);
+begin
+  ExportarDados;
+end;
+
+procedure TfrmLocalizarFuncionario.btnPesquisarClick(Sender: TObject);
+begin
+ SelecionarRegistro;
+end;
+
+procedure TfrmLocalizarFuncionario.ExportarDados;
+var
+  VLoDiretorio, VLoNomeArquivo,VloCaminhoLocal : string;
+  ArqTxt : TextFile;
+  i: integer;
+begin
+   VloCaminhoLocal := 'C:\Listagem';
+
+  if not DirectoryExists(VloCaminhoLocal) then
+    ForceDirectories(VloCaminhoLocal);
+
+  DeleteFile('C:\Listagem\Arquivo.txt');
+ // colocando o nome do arq
+  VLoDiretorio := 'C:\Listagem';
+  VLoNomeArquivo := '\Arquivo.txt';
+
+  VLoNomeArquivo := VLoDiretorio + VLoNomeArquivo;
+  AssignFile(ArqTxt, VLoNomeArquivo);
+  if not FileExists(VLoNomeArquivo)  then
+  Rewrite(ArqTxt);
+
+  QryListagem.First;
+  while not QryListagem.Eof do
+  begin
+    for i := 0 to QryListagem.Fields.Count - 1 do
+     write(ArqTxt, QryListagem.Fields[i].AsString + '|');
+     writeln(ArqTxt, ''); // quebra a linha
+     QryListagem.Next;
+  end;
+  ShowMessage('Arquivo gerado com sucesso');
+  CloseFile(ArqTxt);
+
+
+
+end;
+
+procedure TfrmLocalizarFuncionario.FormCreate(Sender: TObject);
+begin
+  QryListagem.Connection:=dtmPrincipal.ConexaoDB;
+end;
+
+procedure TfrmLocalizarFuncionario.SelecionarRegistro;
+
+begin
+    QryListagem.Close;
+    QryListagem.SQL.Clear;
+    QryListagem.SQL.Add( 'select b.IdEmpresa ,'+
+                       'a.CPF, '+
+                       'a.Nome as NomeFunc, '+
+                       'Nome_Fantasia, '+
+                       'c.Endereco as EnderecoFunc, '+
+                       'c.Bairro as bairroFunc, '+
+                       'c.Cidade as CidadeFunc, '+
+                       'c.CEP as CEPFunc, '+
+                       'c.Numero as Numerofunc, '+
+                       'c.Complemento as ComplementoFun, '+
+                       'a.Email as EmailFunc, '+
+                       'a.Telefone as TelefoneFunc '+
+                'from funcionario as a join Empresa as b on (a.IdEmpresa = b.IdEmpresa) '+
+                                      ' join Endereco as c on (a.CPF = c.CPF) '+
+                ' where c.Data_Cadastro between '+''''+edtDataInicial.text +''''+' and '+'''' +edtDataFinal.text+'''');
+
+   QryListagem.Open;
+
+   if  not QryListagem.Eof  then
+   btnExportar.Enabled:=true;
+
+
+end;
+
+end.

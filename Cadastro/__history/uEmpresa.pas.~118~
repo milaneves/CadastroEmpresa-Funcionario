@@ -1,0 +1,165 @@
+unit uEmpresa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, uTelaHeranca, DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  DBCtrls, Grids, DBGrids, StdCtrls, ExtCtrls, ComCtrls, Buttons, cEmpresa,
+  uDTMConexao, uEnum, Mask;
+
+type
+  TfrmEmpresa = class(TfrmTelaHeranca)
+    edtIdEmpresa: TLabeledEdit;
+    edtRazaoSocial: TLabeledEdit;
+    edtNomeFantasia: TLabeledEdit;
+    edtCNPJ: TLabeledEdit;
+    edtEndereco: TLabeledEdit;
+    edtBairro: TLabeledEdit;
+    edtCidade: TLabeledEdit;
+    edtNumero: TLabeledEdit;
+    edtComplemento: TLabeledEdit;
+    edtEmail: TLabeledEdit;
+    QryListagemIdEmpresa: TIntegerField;
+    edtTelefone: TMaskEdit;
+    lblTelefone: TLabel;
+    edtCEP: TMaskEdit;
+    lblCEP: TLabel;
+    BitBtn1: TBitBtn;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure edtCNPJExit(Sender: TObject);
+
+  private
+    { Private declarations }
+    oEmpresa: TEmpresa;
+    function Apagar: Boolean; Override;
+    function Inserir(EstaDoCadastro: TEstadoDoCadastro): Boolean; Override;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  frmEmpresa: TfrmEmpresa;
+
+implementation
+
+{$R *.dfm}
+
+function TfrmEmpresa.Apagar: Boolean;
+begin
+  Result := oEmpresa.Apagar(QryListagem.FieldByName('IdEmpresa').AsInteger);
+end;
+
+function TfrmEmpresa.Inserir(EstaDoCadastro: TEstadoDoCadastro): Boolean;
+begin
+  // preenchendo o Objeto
+  if edtIdEmpresa.Text <> EmptyStr then
+    oEmpresa.IdEmpresa := StrToInt(edtIdEmpresa.Text)
+  else
+    oEmpresa.IdEmpresa := 0;
+
+  oEmpresa.CNPJ := edtCNPJ.Text;
+  oEmpresa.RazaoSocial := edtRazaoSocial.Text;
+  oEmpresa.NomeFantasia := edtNomeFantasia.Text;
+  oEmpresa.Telefone := edtTelefone.Text;
+  oEmpresa.Email := edtEmail.Text;
+  oEmpresa.CEP := edtCEP.Text;
+  oEmpresa.Endereco := edtEndereco.Text;
+  oEmpresa.Bairro := edtBairro.Text;
+  oEmpresa.Cidade := edtCidade.Text;
+  oEmpresa.Numero := edtNumero.Text;
+  oEmpresa.Complemento := edtComplemento.Text;
+
+  if (EstaDoCadastro = ecInserir) then
+    Result := oEmpresa.Inserir
+  else if (EstaDoCadastro = ecAlterar) then
+    Result := oEmpresa.Atualizar;
+
+end;
+
+procedure TfrmEmpresa.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+   ExportarDados;
+end;
+
+procedure TfrmEmpresa.btnAlterarClick(Sender: TObject);
+begin
+
+  if oEmpresa.Selecionar(QryListagem.FieldByName('CNPJ').value) then
+  begin
+    edtIdEmpresa.Text := IntToStr(oEmpresa.IdEmpresa);
+    edtCNPJ.Text := oEmpresa.CNPJ;
+    edtRazaoSocial.Text := oEmpresa.RazaoSocial;
+    edtNomeFantasia.Text := oEmpresa.NomeFantasia;
+    edtCEP.Text := oEmpresa.CEP;
+    edtEndereco.Text := oEmpresa.Endereco;
+    edtBairro.Text := oEmpresa.Bairro;
+    edtCidade.Text := oEmpresa.Cidade; ;
+    edtNumero.Text := oEmpresa.Numero;
+    edtComplemento.Text := oEmpresa.Complemento;
+    edtTelefone.Text := oEmpresa.Telefone;
+    edtEmail.Text := oEmpresa.Email;
+  end
+  else
+  begin
+    btnCancelar.Click;
+    Abort;
+  end;
+  inherited;
+end;
+
+procedure TfrmEmpresa.edtCNPJExit(Sender: TObject);
+var
+  CNPJ: String;
+
+begin
+    if QryListagem.FieldByName('CNPJ').value<> NUll then
+    begin
+    if oEmpresa.Selecionar( QryListagem.FieldByName('CNPJ').value) then
+    begin
+      edtIdEmpresa.Text := IntToStr(oEmpresa.IdEmpresa);
+      edtCNPJ.Text := oEmpresa.CNPJ;
+      edtRazaoSocial.Text := oEmpresa.RazaoSocial;
+      edtNomeFantasia.Text := oEmpresa.NomeFantasia;
+      edtCEP.Text := oEmpresa.CEP;
+      edtEndereco.Text := oEmpresa.Endereco;
+      edtBairro.Text := oEmpresa.Bairro;
+      edtCidade.Text := oEmpresa.Cidade; ;
+      edtNumero.Text := oEmpresa.Numero;
+      edtComplemento.Text := oEmpresa.Complemento;
+      edtTelefone.Text := oEmpresa.Telefone;
+      edtEmail.Text := oEmpresa.Email;
+
+    //  btnAlterar.Click;
+
+      end
+      else
+      begin
+        btnCancelar.Click;
+        Abort;
+      end;
+    end;
+  inherited;
+end;
+
+procedure TfrmEmpresa.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  // limpa o objeto, se estiver estanciado
+  if Assigned(oEmpresa) then
+    FreeAndNil(oEmpresa);
+
+end;
+
+procedure TfrmEmpresa.FormCreate(Sender: TObject);
+begin
+  inherited;
+  oEmpresa := TEmpresa.Create(dtmPrincipal.ConexaoDB);
+end;
+
+end.

@@ -1,0 +1,144 @@
+object frmLocalizarFuncionario: TfrmLocalizarFuncionario
+  Left = 0
+  Top = 0
+  Caption = 'Localizar Funcion'#225'rios'
+  ClientHeight = 676
+  ClientWidth = 949
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 949
+    Height = 676
+    ActivePage = tabListagem
+    Align = alClient
+    TabOrder = 0
+    object tabListagem: TTabSheet
+      Caption = 'Listagem'
+      ExplicitWidth = 1028
+      ExplicitHeight = 680
+      object pnListagem: TPanel
+        Left = 0
+        Top = 0
+        Width = 941
+        Height = 82
+        Align = alTop
+        TabOrder = 0
+        ExplicitWidth = 1028
+        object lblDataIncial: TLabel
+          Left = 4
+          Top = 30
+          Width = 53
+          Height = 13
+          Caption = 'Data Inicial'
+        end
+        object lblDataFinal: TLabel
+          Left = 140
+          Top = 30
+          Width = 53
+          Height = 13
+          Caption = 'Data Inicial'
+        end
+        object lbla: TLabel
+          Left = 114
+          Top = 49
+          Width = 9
+          Height = 13
+          Caption = #224
+        end
+        object btnPesquisar: TBitBtn
+          Left = 263
+          Top = 47
+          Width = 75
+          Height = 25
+          Caption = 'PESQUISAR'
+          DoubleBuffered = True
+          ParentDoubleBuffered = False
+          TabOrder = 0
+          OnClick = btnPesquisarClick
+        end
+        object BitBtn1: TBitBtn
+          Left = 640
+          Top = 48
+          Width = 291
+          Height = 25
+          Caption = 'EXPORTAR ARQUIVO'
+          DoubleBuffered = True
+          ParentDoubleBuffered = False
+          TabOrder = 1
+          OnClick = BitBtn1Click
+        end
+        object edtDataFinal: TMaskEdit
+          Tag = 1
+          Left = 140
+          Top = 49
+          Width = 101
+          Height = 21
+          EditMask = '!99/99/0000;1;_'
+          MaxLength = 10
+          TabOrder = 2
+          Text = '  /  /    '
+        end
+      end
+      object grdListagem: TDBGrid
+        Left = 3
+        Top = 88
+        Width = 1022
+        Height = 614
+        DataSource = dsListagem
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
+  end
+  object edtDataInicial: TMaskEdit
+    Tag = 1
+    Left = 8
+    Top = 73
+    Width = 101
+    Height = 21
+    EditMask = '!99/99/0000;1;_'
+    MaxLength = 10
+    TabOrder = 1
+    Text = '  /  /    '
+  end
+  object QryListagem: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    SQL.Strings = (
+      'SELECT *'
+      'FROM funcionario')
+    Params = <>
+    Left = 768
+    Top = 88
+    object QryListagemCPF: TWideStringField
+      FieldName = 'CPF'
+      Required = True
+      Size = 11
+    end
+    object QryListagemNome: TWideStringField
+      FieldName = 'Nome'
+      Required = True
+      Size = 70
+    end
+  end
+  object dsListagem: TDataSource
+    DataSet = QryListagem
+    Left = 832
+    Top = 88
+  end
+end

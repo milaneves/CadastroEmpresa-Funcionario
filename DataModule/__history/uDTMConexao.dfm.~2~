@@ -1,0 +1,21 @@
+object dtmPrincipal: TdtmPrincipal
+  OldCreateOrder = False
+  Height = 178
+  Width = 242
+  object ConexaoDB: TZConnection
+    ControlsCodePage = cCP_UTF16
+    AutoEncodeStrings = True
+    SQLHourGlass = True
+    HostName = '.\SQLEXPRESS'
+    Port = 0
+    Database = 'Vendas'
+    User = 'mila'
+    Password = '246810Mila'
+    Protocol = 'mssql'
+    LibraryLocation = 
+      'C:\Users\milaneves\Documents\PROJETOS\Delphi\ExtraDigital\ntwdbl' +
+      'ib'
+    Left = 40
+    Top = 40
+  end
+end

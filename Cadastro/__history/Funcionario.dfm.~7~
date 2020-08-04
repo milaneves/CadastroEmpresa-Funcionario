@@ -1,0 +1,185 @@
+inherited frmTelaHeranca1: TfrmTelaHeranca1
+  Caption = 'Cadastro de Funcion'#225'rio'
+  ExplicitTop = 8
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pgPrincipal: TPageControl
+    ActivePage = tabManutencao
+    inherited tabManutencao: TTabSheet
+      ExplicitLeft = -3
+      ExplicitTop = 30
+      object edtIdEmpresa: TLabeledEdit
+        Tag = 2
+        Left = 11
+        Top = 53
+        Width = 102
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        MaxLength = 10
+        NumbersOnly = True
+        TabOrder = 0
+      end
+      object edtNome: TLabeledEdit
+        Tag = 1
+        Left = 119
+        Top = 101
+        Width = 574
+        Height = 21
+        EditLabel.Width = 27
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Nome'
+        TabOrder = 1
+      end
+      object edtEndereco: TLabeledEdit
+        Tag = 1
+        Left = 119
+        Top = 146
+        Width = 310
+        Height = 21
+        EditLabel.Width = 45
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Endere'#231'o'
+        TabOrder = 2
+      end
+      object edtBairro: TLabeledEdit
+        Tag = 1
+        Left = 435
+        Top = 146
+        Width = 258
+        Height = 21
+        EditLabel.Width = 28
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Bairro'
+        TabOrder = 3
+      end
+      object edtCidade: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 194
+        Width = 182
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Cidade'
+        TabOrder = 4
+      end
+      object edtCEP: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 146
+        Width = 102
+        Height = 21
+        EditLabel.Width = 19
+        EditLabel.Height = 13
+        EditLabel.Caption = 'CEP'
+        TabOrder = 5
+      end
+      object edtNumero: TLabeledEdit
+        Tag = 1
+        Left = 199
+        Top = 194
+        Width = 58
+        Height = 21
+        EditLabel.Width = 37
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Numero'
+        TabOrder = 6
+      end
+      object edtComplemento: TLabeledEdit
+        Tag = 1
+        Left = 263
+        Top = 194
+        Width = 430
+        Height = 21
+        EditLabel.Width = 65
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Complemento'
+        TabOrder = 7
+      end
+      object edtTelefone: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 244
+        Width = 102
+        Height = 21
+        EditLabel.Width = 42
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Telefone'
+        TabOrder = 8
+      end
+      object edtEmail: TLabeledEdit
+        Tag = 1
+        Left = 119
+        Top = 244
+        Width = 574
+        Height = 21
+        EditLabel.Width = 24
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Email'
+        TabOrder = 9
+      end
+      object edtCPF: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 101
+        Width = 102
+        Height = 21
+        EditLabel.Width = 19
+        EditLabel.Height = 13
+        EditLabel.Caption = 'CPF'
+        TabOrder = 10
+      end
+      object edtDataAdmissao: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 294
+        Width = 102
+        Height = 21
+        EditLabel.Width = 86
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Data de Admiss'#227'o'
+        TabOrder = 11
+      end
+      object edtCargo: TLabeledEdit
+        Tag = 1
+        Left = 119
+        Top = 294
+        Width = 354
+        Height = 21
+        EditLabel.Width = 29
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Cargo'
+        TabOrder = 12
+      end
+      object edtSalario: TLabeledEdit
+        Tag = 1
+        Left = 479
+        Top = 294
+        Width = 214
+        Height = 21
+        EditLabel.Width = 32
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Sal'#225'rio'
+        TabOrder = 13
+      end
+      object edtDemissao: TLabeledEdit
+        Tag = 1
+        Left = 11
+        Top = 354
+        Width = 102
+        Height = 21
+        EditLabel.Width = 97
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Data de Demiss'#227'o :('
+        TabOrder = 14
+      end
+    end
+  end
+  inherited pnRodape: TPanel
+    inherited DBNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+end

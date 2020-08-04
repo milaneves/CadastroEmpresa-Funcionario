@@ -1,0 +1,27 @@
+program ExtraDigital;
+
+uses
+  Forms,
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uDTMConexao in 'DataModule\uDTMConexao.pas' {dtmPrincipal: TDataModule},
+  uTelaHeranca in 'Heranca\uTelaHeranca.pas' {frmTelaHeranca},
+  uEnum in 'Heranca\uEnum.pas',
+  uEmpresa in 'Cadastro\uEmpresa.pas' {frmEmpresa},
+  cEmpresa in 'Classes\cEmpresa.pas',
+  uFuncionario in 'Cadastro\uFuncionario.pas' {frmFuncionario},
+  cFuncionario in 'Classes\cFuncionario.pas',
+  uLocalizarEmpresa in 'Localizar\uLocalizarEmpresa.pas' {frmLocalizarFuncionario};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TdtmPrincipal, dtmPrincipal);
+  Application.CreateForm(TfrmTelaHeranca, frmTelaHeranca);
+  Application.CreateForm(TfrmEmpresa, frmEmpresa);
+  Application.CreateForm(TfrmFuncionario, frmFuncionario);
+  Application.CreateForm(TfrmLocalizarFuncionario, frmLocalizarFuncionario);
+  Application.Run;
+end.
